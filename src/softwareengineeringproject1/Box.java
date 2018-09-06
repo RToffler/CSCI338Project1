@@ -4,7 +4,7 @@ package softwareengineeringproject1;
 import csci338.drawings.SimpleDrawing;
 /**
  *This class is instantiated when the user inputs
- * the "box" command.  To be implemented.
+ * the "box" command.
  */
 public class Box {
     
@@ -44,5 +44,36 @@ public class Box {
             drawing.showPoint(xcoord, ycoord+i);
             drawing.showPoint(xcoord+length, ycoord+i);
         }
+    }
+    
+    /**
+     * Hides all points of the box using same iterative pattern
+     * of draw().
+     */
+    public void delete(){
+        for(int i = 0; i < length; i ++){
+            drawing.hidePoint(xcoord+i, ycoord);
+            drawing.hidePoint(xcoord+i, ycoord+height);
+        }
+        for(int i = 0; i <= height; i++){
+            drawing.hidePoint(xcoord, ycoord+i);
+            drawing.hidePoint(xcoord+length, ycoord+i);
+        }
+    }
+    
+    public int getxCoord(){
+        return xcoord;
+    }
+    
+    public int getyCoord(){
+        return ycoord;
+    }
+    
+    public int getLength(){
+        return length;
+    }
+    
+    public int getHeight(){
+        return height;
     }
 }

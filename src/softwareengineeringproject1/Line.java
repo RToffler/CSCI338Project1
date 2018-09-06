@@ -8,6 +8,7 @@ import csci338.drawings.SimpleDrawing;
  */
 public class Line {
     
+    private Point[] points;
     /*
     Integers are not final because later features may modify
     the position of lines using transforms.
@@ -42,8 +43,12 @@ public class Line {
         
         //If angle is > 45 degrees definition is higher in respect to Y axis.
         if(angle >= 45.0){
+            //Number of points in line = yChange, initialize points.
+            points = new Point[yChange];
             drawByY(xChange, yChange);
         }else{
+            //Number of points in line = xChange, initialize points.
+            points = new Point[xChange];
             drawByX(xChange, yChange);
         }
         
@@ -66,6 +71,8 @@ public class Line {
         int drawY = y1;
         
         for (int i = 0; i < xChange ; i++){
+            //Store points in array for use in deletion/transforms.
+            points[i] = new Point(drawX, drawY);
             
             drawing.showPoint(drawX, drawY);
             drawY = Math.round(y1 + ySlope*i);
@@ -96,6 +103,8 @@ public class Line {
         int drawY = y1;
         
         for (int i = 0; i < yChange; i++){
+            //Store points in array for use in deletion/transforms.
+            points[i] = new Point(drawX, drawY);
             
             drawing.showPoint(drawX, drawY);
             drawX = Math.round(x1 + xSlope*i);
@@ -107,5 +116,31 @@ public class Line {
             }
             
         }
+    }
+    
+    /**
+     * Hides points by iterating through array containing the
+     * x and y values for all points in the line and calling hidePoint();.
+     */
+    public void delete(){
+        for(int i = 0; i < points.length; i++){
+            drawing.hidePoint(points[i].getX(), points[i].getY());
+        }
+    }
+    
+    public int getX1(){
+        return x1;
+    }
+    
+    public int getX2(){
+        return x2;
+    }
+    
+    public int getY1(){
+        return y1;
+    }
+    
+    public int getY2(){
+        return y2;
     }
 }
