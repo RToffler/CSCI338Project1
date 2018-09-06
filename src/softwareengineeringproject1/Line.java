@@ -28,18 +28,19 @@ public class Line {
     }
     
     /**
-     * This method currently draws a line pixel by pixel
-     * with respect to the x-axis.  To be implemented is a
-     * check to see if the line would be drawn with greater
-     * definition in respect to the y-axis, and separate
-     * methods drawing from respect to the y and x axes.
+     * This method determines if a line would have a higher
+     * definition when drawn with respect to the y or x axis and
+     * then calls the respective draw method.
      */
     public void draw (){
         
         int xChange = Math.abs(x2 - x1);
         int yChange = Math.abs(y2 - y1);
+        
+        //find value of opposite angle.
         double angle = Math.toDegrees(Math.atan((float)yChange/xChange));
         
+        //If angle is > 45 degrees definition is higher in respect to Y axis.
         if(angle >= 45.0){
             drawByY(xChange, yChange);
         }else{

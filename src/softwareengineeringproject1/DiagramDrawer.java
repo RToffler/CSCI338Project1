@@ -73,6 +73,18 @@ public class DiagramDrawer {
                     lines.add(line);
                     break;
                     
+                case "box":
+                    
+                    int xcoord = Integer.parseInt(keywords[1]);
+                    int ycoord = Integer.parseInt(keywords[2]);
+                    int length = Integer.parseInt(keywords[3]);
+                    int height = Integer.parseInt(keywords[4]);
+                    
+                    Box box = new Box(xcoord, ycoord, length, height, drawing);
+                    
+                    boxes.add(box);
+                    break;
+                    
                 default: 
                     System.out.println("Unrecognized command, '" + input
                             + "', type 'help' for list of commands.");
@@ -86,6 +98,15 @@ public class DiagramDrawer {
      * and their effects.
      */
     public void help() {
-        System.out.println("Not Yet Implemented");
+        System.out.println("List of valid commands:\n");
+        
+        System.out.println("'line x1 y1 x2 y2' - Draws a line from point(x1, y1)"
+                + " to point (x2, y2).\n");
+        
+        System.out.println("'box x y length height' - Draws a rectangle with"
+                + " its upper-left corner at\n" + "(x,y) and with the given"
+                + " length and height.\n");
+        
+        System.out.println("'quit' - Terminate application.");
     }
 }
