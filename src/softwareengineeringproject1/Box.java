@@ -6,8 +6,8 @@
 package softwareengineeringproject1;
 
 /**
- *
- * @author mille
+ *This class is instantiated when the user inputs
+ * the "box" command.  To be implemented.
  */
 public class Box {
     

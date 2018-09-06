@@ -13,6 +13,9 @@ import csci338.drawings.SimpleDrawing;
 /**
  *
  * @author Richard Miller
+ * This program utilizes the provided point-drawing API
+ * in an application that allows users to draw rectangles
+ * and lines, or the basis of UML diagrams.
  */
 public class DiagramDrawer {
 
@@ -29,8 +32,17 @@ public class DiagramDrawer {
         dg.shell();
     }
 
+    /**
+     * This method is the shell that accepts and
+     * responds to user input using a break statement
+     * for the valid inputs.
+     */
     public void shell() {
         
+        /*
+        Data structures containing lines and boxes for future 
+        implemented features, I.E transformation/deletion.
+        */
         ArrayList<Line> lines = new ArrayList<Line>();
         ArrayList<Box> boxes = new ArrayList<Box>();
         
@@ -70,6 +82,10 @@ public class DiagramDrawer {
         }
     }
 
+    /**
+     * this method will print out a list of valid commands
+     * and their effects.
+     */
     public void help() {
         System.out.println("Not Yet Implemented");
     }

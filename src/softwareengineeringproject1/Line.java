@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package softwareengineeringproject1;
 
 import csci338.drawings.SimpleDrawing;
 /**
- *
- * @author mille
+ * Instantiated when the user uses the "line" command.
+ * Draws a line in the simple drawing window.
  */
 public class Line {
     
@@ -27,6 +23,13 @@ public class Line {
         draw();
     }
     
+    /**
+     * This method currently draws a line pixel by pixel
+     * with respect to the x-axis.  To be implemented is a
+     * check to see if the line would be drawn with greater
+     * definition in respect to the y-axis, and separate
+     * methods drawing from respect to the y and x axes.
+     */
     public void draw (){
         
         float yslope = (((float)y2 - y1) / ((float)x2 - x1));
@@ -52,10 +55,16 @@ public class Line {
         }
     }
     
+    /**
+     * Method to draw with respect to the X axis.
+     */
     public void drawByX(){
         
     }
     
+    /**
+     * Method to draw with respect to the Y axis.
+     */
     public void drawByY(){
         
     }
