@@ -8,6 +8,10 @@ import csci338.drawings.SimpleDrawing;
  */
 public class Line {
     
+    /*
+    Integers are not final because later features may modify
+    the position of lines using transforms.
+    */
     private int x1, y1, x2, y2;
     SimpleDrawing drawing;
     
@@ -32,19 +36,38 @@ public class Line {
      */
     public void draw (){
         
-        float yslope = (((float)y2 - y1) / ((float)x2 - x1));
+        int xChange = Math.abs(x2 - x1);
+        int yChange = Math.abs(y2 - y1);
+        double angle = Math.toDegrees(Math.atan((float)yChange/xChange));
         
-        if (x1 > x2){
-            yslope = yslope * -1;
+        if(angle >= 45.0){
+            drawByY(xChange, yChange);
+        }else{
+            drawByX(xChange, yChange);
+        }
+        
+    }
+    
+    /**
+     * Method to draw with respect to the X axis.
+     * @param xChange The change in X value between x1 and x2.
+     * @param yChange The change in Y value between y1 and y2.
+     */
+    public void drawByX(int xChange, int yChange){
+        
+        float ySlope = ((float) yChange / (float)xChange);
+        
+        if (y1 > y2){
+            ySlope = ySlope * -1;
         }
         
         int drawX = x1;
         int drawY = y1;
         
-        for (int i = 0; i < Math.abs(x1-x2); i++){
+        for (int i = 0; i < xChange ; i++){
             
             drawing.showPoint(drawX, drawY);
-            drawY = Math.round(y1 + yslope*i);
+            drawY = Math.round(y1 + ySlope*i);
             
             if(x1 < x2 ){
                 drawX++;
@@ -56,16 +79,32 @@ public class Line {
     }
     
     /**
-     * Method to draw with respect to the X axis.
-     */
-    public void drawByX(){
-        
-    }
-    
-    /**
      * Method to draw with respect to the Y axis.
+     * @param xChange The change in X value between x1 and x2.
+     * @param yChange The change in Y value between y1 and y2.
      */
-    public void drawByY(){
+    public void drawByY(int xChange, int yChange){
         
+        float xSlope = ((float)xChange / (float)yChange);
+        
+        if (x1 > x2){
+            xSlope = xSlope * -1;
+        }
+        
+        int drawX = x1;
+        int drawY = y1;
+        
+        for (int i = 0; i < yChange; i++){
+            
+            drawing.showPoint(drawX, drawY);
+            drawX = Math.round(x1 + xSlope*i);
+            
+            if(y1 < y2 ){
+                drawY++;
+            }else if (y1 > y2){
+                drawY--;
+            }
+            
+        }
     }
 }

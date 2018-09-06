@@ -7,7 +7,6 @@ package softwareengineeringproject1;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import csci338.drawings.Drawing;
 import csci338.drawings.SimpleDrawing;
 
 /**
