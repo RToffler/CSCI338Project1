@@ -1,7 +1,6 @@
 
 package softwareengineeringproject1;
 
-import csci338.drawings.SimpleDrawing;
 import java.util.ArrayList;
 /**
  *This class is instantiated when the user inputs
@@ -9,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Box extends Shape{
     
-    private int height, length;
-    private int xcoord, ycoord;
+    private final int height, length;
+    private final int xcoord, ycoord;
     
     /**
      * Constructor for a box.
@@ -18,7 +17,6 @@ public class Box extends Shape{
      * @param ycoord the y coordinate for the upper left hand corner of the box
      * @param length the length of the box in pixels.
      * @param height the height of the box in pixels.
-     * @param drawing the Simple Drawing object from main.
      */
     public Box(int xcoord, int ycoord, int length, int height){
         
@@ -55,10 +53,6 @@ public class Box extends Shape{
         }
     }
     
-    /**
-     * Hides all points of the box using same iterative pattern
-     * of draw().
-     */
     public void delete(){
         
     }

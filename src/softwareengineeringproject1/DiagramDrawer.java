@@ -7,7 +7,6 @@ package softwareengineeringproject1;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import csci338.drawings.SimpleDrawing;
 
 /**
  *
@@ -71,110 +70,27 @@ public class DiagramDrawer {
                     break;
 
                 case "box":
-                    //Check for proper input.
-                    if (keywords.length != 5) {
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-
-                    int xcoord = Integer.parseInt(keywords[1]);
-                    int ycoord = Integer.parseInt(keywords[2]);
-                    int length = Integer.parseInt(keywords[3]);
-                    int height = Integer.parseInt(keywords[4]);
-
-                    Box box = new Box(xcoord, ycoord, length, height);
-
-                    drawing.draw(box);
-                    shapes.add(box);
+                    handleBox(keywords);
                     break;
 
                 case "triangle":
-                    //Check for proper input.
-                    if (keywords.length != 5) {
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-
-                    int triangleX = Integer.parseInt(keywords[1]);
-                    int triangleY = Integer.parseInt(keywords[2]);
-                    int triangleHeight = Integer.parseInt(keywords[3]);
-
-                    Triangle triangle = new Triangle(triangleX, triangleY,
-                            triangleHeight, keywords[4]);
-
-                    drawing.draw(triangle);
-                    shapes.add(triangle);
+                    handleTriangle(keywords);
                     break;
 
                 case "circle":
-
-                    if (keywords.length != 4) {
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-
-                    int circleX = Integer.parseInt(keywords[1]);
-                    int circleY = Integer.parseInt(keywords[2]);
-                    int radius = Integer.parseInt(keywords[3]);
-
-                    Circle circle = new Circle(circleX, circleY, radius);
-
-                    drawing.draw(circle);
-                    shapes.add(circle);
+                    handleCircle(keywords);
                     break;
 
                 case "pgram":
-
-                    if (keywords.length != 6) {
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-
-                    int pgramX = Integer.parseInt(keywords[1]);
-                    int pgramY = Integer.parseInt(keywords[2]);
-                    int pLength = Integer.parseInt(keywords[3]);
-                    int pHeight = Integer.parseInt(keywords[4]);
-                    double theta = Double.parseDouble(keywords[5]);
-
-                    PGram pgram = new PGram(pgramX, pgramY, pLength, pHeight,
-                            theta);
-
-                    drawing.draw(pgram);
-                    shapes.add(pgram);
+                    handlePgram(keywords);
                     break;
 
                 case "diamond":
-                    if (keywords.length != 5) {
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-                    int diamondX = Integer.parseInt(keywords[1]);
-                    int diamondY = Integer.parseInt(keywords[2]);
-                    int dWidth = Integer.parseInt(keywords[3]);
-                    int dHeight = Integer.parseInt(keywords[4]);
-
-                    Diamond diamond = new Diamond(diamondX, diamondY, dWidth,
-                            dHeight);
-
-                    drawing.draw(diamond);
-                    shapes.add(diamond);
+                    handleDiamond(keywords);
                     break;
 
                 case "arrow":
-                    if (keywords.length != 5) {
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-                    int arrowX = Integer.parseInt(keywords[1]);
-                    int arrowY = Integer.parseInt(keywords[2]);
-                    int arrowLength = Integer.parseInt(keywords[3]);
-                    String aOrientation = (keywords[4]);
-
-                    Arrow arrow = new Arrow(arrowX, arrowY, arrowLength,
-                            aOrientation);
-
-                    drawing.draw(arrow);
-                    shapes.add(arrow);
+                    handleArrow(keywords);
                     break;
 
                 case "delete":
@@ -201,8 +117,10 @@ public class DiagramDrawer {
         int y2 = Integer.parseInt(keywords[4]);
 
         Line line = new Line(x1, y1, x2, y2);
+
+        drawing.addShape(line);
         drawing.draw(line);
-        shapes.add(line);
+
     }
 
     public void handleDottedLine(String[] keywords) {
@@ -219,24 +137,117 @@ public class DiagramDrawer {
 
         DottedLine dottedLine = new DottedLine(x1, y1, x2, y2, rate);
 
+        drawing.addShape(dottedLine);
         drawing.draw(dottedLine);
-        shapes.add(dottedLine);
+
+    }
+
+    public void handleBox(String[] keywords) {
+        if (keywords.length != 5) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
+
+        int xcoord = Integer.parseInt(keywords[1]);
+        int ycoord = Integer.parseInt(keywords[2]);
+        int length = Integer.parseInt(keywords[3]);
+        int height = Integer.parseInt(keywords[4]);
+
+        Box box = new Box(xcoord, ycoord, length, height);
+
+        drawing.addShape(box);
+        drawing.draw(box);
 
     }
 
     public void handleTriangle(String[] keywords) {
+        //Check for proper input.
+        if (keywords.length != 5) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
 
+        int triangleX = Integer.parseInt(keywords[1]);
+        int triangleY = Integer.parseInt(keywords[2]);
+        int triangleHeight = Integer.parseInt(keywords[3]);
+
+        Triangle triangle = new Triangle(triangleX, triangleY,
+                triangleHeight, keywords[4]);
+
+        drawing.addShape(triangle);
+        drawing.draw(triangle);
     }
 
     public void handleCircle(String[] keywords) {
+        if (keywords.length != 4) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
+
+        int circleX = Integer.parseInt(keywords[1]);
+        int circleY = Integer.parseInt(keywords[2]);
+        int radius = Integer.parseInt(keywords[3]);
+
+        Circle circle = new Circle(circleX, circleY, radius);
+
+        drawing.addShape(circle);
+        drawing.draw(circle);
+
+    }
+
+    public void handlePgram(String[] keywords) {
+        if (keywords.length != 6) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
+
+        int pgramX = Integer.parseInt(keywords[1]);
+        int pgramY = Integer.parseInt(keywords[2]);
+        int pLength = Integer.parseInt(keywords[3]);
+        int pHeight = Integer.parseInt(keywords[4]);
+        double theta = Double.parseDouble(keywords[5]);
+
+        PGram pgram = new PGram(pgramX, pgramY, pLength, pHeight,
+                theta);
+
+        drawing.addShape(pgram);
+        drawing.draw(pgram);
 
     }
 
     public void handleArrow(String[] keywords) {
+        if (keywords.length != 5) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
+        int arrowX = Integer.parseInt(keywords[1]);
+        int arrowY = Integer.parseInt(keywords[2]);
+        int arrowLength = Integer.parseInt(keywords[3]);
+        String aOrientation = (keywords[4]);
+
+        Arrow arrow = new Arrow(arrowX, arrowY, arrowLength,
+                aOrientation);
+
+        drawing.addShape(arrow);
+        drawing.draw(arrow);
 
     }
 
     public void handleDiamond(String[] keywords) {
+        if (keywords.length != 5) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
+        int diamondX = Integer.parseInt(keywords[1]);
+        int diamondY = Integer.parseInt(keywords[2]);
+        int dWidth = Integer.parseInt(keywords[3]);
+        int dHeight = Integer.parseInt(keywords[4]);
+
+        Diamond diamond = new Diamond(diamondX, diamondY, dWidth,
+                dHeight);
+
+        drawing.addShape(diamond);
+        drawing.draw(diamond);
 
     }
 
