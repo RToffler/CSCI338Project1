@@ -21,15 +21,15 @@ public class DiagramDrawer {
         Data structures containing lines and boxes for future 
         implemented features, I.E transformation/deletion.
      */
-    ArrayList<Line> lines = new ArrayList<Line>();
-    ArrayList<Box> boxes = new ArrayList<Box>();
+    ArrayList<Shape> shapes = new ArrayList();
 
     Scanner scanner = new Scanner(System.in);
-    public SimpleDrawing drawing = new SimpleDrawing();
+    public InteractiveDrawing drawing = new InteractiveDrawing();
 
     /**
-     * The main method simply calls the shell method which
-     * then accepts and handles user inputs.
+     * The main method simply calls the shell method which then accepts and
+     * handles user inputs.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -59,73 +59,185 @@ public class DiagramDrawer {
                     break;
 
                 case "quit":
+
                     return;
 
                 case "line":
-                    //Check for proper input
-                    if(keywords.length != 5){
-                        System.out.println("Error: Improper number of arguments.");
-                        break;
-                    }
-                    
-                    int x1 = Integer.parseInt(keywords[1]);
-                    int y1 = Integer.parseInt(keywords[2]);
-                    int x2 = Integer.parseInt(keywords[3]);
-                    int y2 = Integer.parseInt(keywords[4]);
+                    handleLine(keywords);
+                    break;
 
-                    Line line = new Line(x1, y1, x2, y2, drawing);
-
-                    lines.add(line);
+                case "dottedline":
+                    handleDottedLine(keywords);
                     break;
 
                 case "box":
                     //Check for proper input.
-                    if(keywords.length != 5){
+                    if (keywords.length != 5) {
                         System.out.println("Error: Improper number of arguments.");
                         break;
                     }
-                    
+
                     int xcoord = Integer.parseInt(keywords[1]);
                     int ycoord = Integer.parseInt(keywords[2]);
                     int length = Integer.parseInt(keywords[3]);
                     int height = Integer.parseInt(keywords[4]);
 
-                    Box box = new Box(xcoord, ycoord, length, height, drawing);
+                    Box box = new Box(xcoord, ycoord, length, height);
 
-                    boxes.add(box);
+                    drawing.draw(box);
+                    shapes.add(box);
                     break;
-                
-                case "delete":
+
+                case "triangle":
                     //Check for proper input.
-                    if(keywords.length != 6){
+                    if (keywords.length != 5) {
                         System.out.println("Error: Improper number of arguments.");
                         break;
                     }
-                    
-                    if(keywords[1].equals("box")){
-                        int deleteXcoord = Integer.parseInt(keywords[2]);
-                        int deleteYcoord = Integer.parseInt(keywords[3]);
-                        int deleteLength = Integer.parseInt(keywords[4]);
-                        int deleteHeight = Integer.parseInt(keywords[5]);
-                        
-                    deleteBox(deleteXcoord, deleteYcoord, deleteLength, deleteHeight);
+
+                    int triangleX = Integer.parseInt(keywords[1]);
+                    int triangleY = Integer.parseInt(keywords[2]);
+                    int triangleHeight = Integer.parseInt(keywords[3]);
+
+                    Triangle triangle = new Triangle(triangleX, triangleY,
+                            triangleHeight, keywords[4]);
+
+                    drawing.draw(triangle);
+                    shapes.add(triangle);
                     break;
+
+                case "circle":
+
+                    if (keywords.length != 4) {
+                        System.out.println("Error: Improper number of arguments.");
+                        break;
                     }
-                    if(keywords[1].equals("line")){
-                        int deleteX1 = Integer.parseInt(keywords[2]);
-                        int deleteY1 = Integer.parseInt(keywords[3]);
-                        int deleteX2 = Integer.parseInt(keywords[4]);
-                        int deleteY2 = Integer.parseInt(keywords[5]);
-                        
-                    deleteLine(deleteX1, deleteY1, deleteX2, deleteY2);
+
+                    int circleX = Integer.parseInt(keywords[1]);
+                    int circleY = Integer.parseInt(keywords[2]);
+                    int radius = Integer.parseInt(keywords[3]);
+
+                    Circle circle = new Circle(circleX, circleY, radius);
+
+                    drawing.draw(circle);
+                    shapes.add(circle);
                     break;
+
+                case "pgram":
+
+                    if (keywords.length != 6) {
+                        System.out.println("Error: Improper number of arguments.");
+                        break;
                     }
+
+                    int pgramX = Integer.parseInt(keywords[1]);
+                    int pgramY = Integer.parseInt(keywords[2]);
+                    int pLength = Integer.parseInt(keywords[3]);
+                    int pHeight = Integer.parseInt(keywords[4]);
+                    double theta = Double.parseDouble(keywords[5]);
+
+                    PGram pgram = new PGram(pgramX, pgramY, pLength, pHeight,
+                            theta);
+
+                    drawing.draw(pgram);
+                    shapes.add(pgram);
+                    break;
+
+                case "diamond":
+                    if (keywords.length != 5) {
+                        System.out.println("Error: Improper number of arguments.");
+                        break;
+                    }
+                    int diamondX = Integer.parseInt(keywords[1]);
+                    int diamondY = Integer.parseInt(keywords[2]);
+                    int dWidth = Integer.parseInt(keywords[3]);
+                    int dHeight = Integer.parseInt(keywords[4]);
+
+                    Diamond diamond = new Diamond(diamondX, diamondY, dWidth,
+                            dHeight);
+
+                    drawing.draw(diamond);
+                    shapes.add(diamond);
+                    break;
+
+                case "arrow":
+                    if (keywords.length != 5) {
+                        System.out.println("Error: Improper number of arguments.");
+                        break;
+                    }
+                    int arrowX = Integer.parseInt(keywords[1]);
+                    int arrowY = Integer.parseInt(keywords[2]);
+                    int arrowLength = Integer.parseInt(keywords[3]);
+                    String aOrientation = (keywords[4]);
+
+                    Arrow arrow = new Arrow(arrowX, arrowY, arrowLength,
+                            aOrientation);
+
+                    drawing.draw(arrow);
+                    shapes.add(arrow);
+                    break;
+
+                case "delete":
+                    //Implement
+                    break;
                 default:
                     System.out.println("Unrecognized command, '" + input
                             + "', type 'help' for list of commands.");
                     break;
             }
         }
+    }
+
+    public void handleLine(String[] keywords) {
+        //Check for proper input
+        if (keywords.length != 5) {
+            System.out.println("Error: Improper number of arguments.");
+            return;
+        }
+
+        int x1 = Integer.parseInt(keywords[1]);
+        int y1 = Integer.parseInt(keywords[2]);
+        int x2 = Integer.parseInt(keywords[3]);
+        int y2 = Integer.parseInt(keywords[4]);
+
+        Line line = new Line(x1, y1, x2, y2);
+        drawing.draw(line);
+        shapes.add(line);
+    }
+
+    public void handleDottedLine(String[] keywords) {
+        if (keywords.length != 6) {
+            System.out.println("Error: incorrect number of arguments.");
+            return;
+        }
+
+        int x1 = Integer.parseInt(keywords[1]);
+        int y1 = Integer.parseInt(keywords[2]);
+        int x2 = Integer.parseInt(keywords[3]);
+        int y2 = Integer.parseInt(keywords[4]);
+        int rate = Integer.parseInt(keywords[5]);
+
+        DottedLine dottedLine = new DottedLine(x1, y1, x2, y2, rate);
+
+        drawing.draw(dottedLine);
+        shapes.add(dottedLine);
+
+    }
+
+    public void handleTriangle(String[] keywords) {
+
+    }
+
+    public void handleCircle(String[] keywords) {
+
+    }
+
+    public void handleArrow(String[] keywords) {
+
+    }
+
+    public void handleDiamond(String[] keywords) {
+
     }
 
     /**
@@ -140,64 +252,14 @@ public class DiagramDrawer {
         System.out.println("'box x y length height' - Draws a rectangle with"
                 + " its upper-left corner at\n" + "(x,y) and with the given"
                 + " length and height.\n");
-        
+
         System.out.println("'delete box x y length height' - Deletes any rectangle"
                 + " that exists with the provided charcteristics.\n");
 
         System.out.println("'delete line x1 y1 x2 y2' - Deletes any line"
                 + " that exists with the provided charcteristics.\n");
-        
+
         System.out.println("'quit' - Terminate application.");
     }
 
-    /**
-     * This method searches for Box objects with matching characteristics
-     * in the boxes ArrayList, hides their points using their delete() method
-     * and removes them from the ArrayList.
-     * @param x the x coordinate of the upper left corner of the box to be
-     * deleted.
-     * @param y the y coordinate of the upper left corner of the box to be
-     * deleted.
-     * @param length the length of the box to be deleted.
-     * @param height the height of the box to be deleted.
-     */
-    public void deleteBox(int x, int y, int length, int height) {
-        for (int i = 0; i < boxes.size(); i++) {
-            
-            int boxX = boxes.get(i).getxCoord();
-            int boxY = boxes.get(i).getyCoord();
-            int boxLength = boxes.get(i).getLength();
-            int boxHeight = boxes.get(i).getHeight();
-            
-            if(boxX == x && boxY == y && boxLength == length && boxHeight == height){
-                boxes.get(i).delete();
-                boxes.remove(i);
-            }
-        }
-    }
-
-    /**
-     * This method searches for Line objects with matching characteristics
-     * in the lines ArrayList, hides their points using their delete() method
-     * and removes them from the ArrayList.
-     * @param x1 the x1 coordinate of the line to be deleted.
-     * @param y1 the y1 coordinate of the line to be deleted.
-     * @param x2 the x2 coordinate of the line to be deleted.
-     * @param y2 the y2 coordinate of the line to be deleted.
-     */
-    
-    public void deleteLine(int x1, int y1, int x2, int y2) {
-        for (int i = 0; i < lines.size(); i++) {
-            
-            int linex1 = lines.get(i).getX1();
-            int liney1 = lines.get(i).getY1();
-            int linex2 = lines.get(i).getX2();
-            int liney2 = lines.get(i).getY2();
-            
-            if(linex1 == x1 && liney1 == y1 && linex2 == x2 && liney2 == y2){
-                lines.get(i).delete();
-                lines.remove(i);
-            }
-        }
-    }
 }

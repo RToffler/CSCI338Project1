@@ -2,15 +2,15 @@
 package softwareengineeringproject1;
 
 import csci338.drawings.SimpleDrawing;
+import java.util.ArrayList;
 /**
  *This class is instantiated when the user inputs
  * the "box" command.
  */
-public class Box {
+public class Box extends Shape{
     
     private int height, length;
     private int xcoord, ycoord;
-    private SimpleDrawing drawing;
     
     /**
      * Constructor for a box.
@@ -20,29 +20,38 @@ public class Box {
      * @param height the height of the box in pixels.
      * @param drawing the Simple Drawing object from main.
      */
-    public Box(int xcoord, int ycoord, int length, int height, SimpleDrawing drawing){
+    public Box(int xcoord, int ycoord, int length, int height){
+        
+        super.points = new ArrayList();
+        
         this.xcoord = xcoord;
         this.ycoord = ycoord;
         this.length = length;
         this.height = height;
-        this.drawing = drawing;
         
-        draw();
+        definePoints();
     }
     
     /**
-     * Draws boxes by iterating through the length and height
-     * and adding the iterator to the x and y coordinates to 
-     * draw the sides of a box.
+     * Fills ArrayList of points with point values which can
+     * be passed to drawing to draw image.
      */
-    public void draw(){
+    private void definePoints(){
         for(int i = 0; i < length; i ++){
-            drawing.showPoint(xcoord+i, ycoord);
-            drawing.showPoint(xcoord+i, ycoord+height);
+            Point p1 = new Point(xcoord+i, ycoord);
+            Point p2 = new Point(xcoord+i, ycoord+height);
+            
+            super.points.add(p1);
+            super.points.add(p2);
+            
         }
         for(int i = 0; i <= height; i++){
-            drawing.showPoint(xcoord, ycoord+i);
-            drawing.showPoint(xcoord+length, ycoord+i);
+            Point p1 = new Point(xcoord, ycoord+i);
+            Point p2 = new Point (xcoord+length, ycoord+i);
+            
+            super.points.add(p1);
+            super.points.add(p2);
+
         }
     }
     
@@ -51,14 +60,12 @@ public class Box {
      * of draw().
      */
     public void delete(){
-        for(int i = 0; i < length; i ++){
-            drawing.hidePoint(xcoord+i, ycoord);
-            drawing.hidePoint(xcoord+i, ycoord+height);
-        }
-        for(int i = 0; i <= height; i++){
-            drawing.hidePoint(xcoord, ycoord+i);
-            drawing.hidePoint(xcoord+length, ycoord+i);
-        }
+        
+    }
+    
+    @Override
+    public String getShapeType(){
+        return "box";
     }
     
     public int getxCoord(){

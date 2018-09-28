@@ -1,31 +1,30 @@
 
 package softwareengineeringproject1;
 
-import csci338.drawings.SimpleDrawing;
+import java.util.ArrayList;
 /**
  * Instantiated when the user uses the "line" command.
  * Draws a line in the simple drawing window.
  */
-public class Line {
+public class Line extends Shape{
     
-    private Point[] points;
     /*
     Integers are not final because later features may modify
     the position of lines using transforms.
     */
     private int x1, y1, x2, y2;
-    SimpleDrawing drawing;
     
-    public Line(int startX, int startY, int endX, int endY, SimpleDrawing drawing){
+    public Line(int startX, int startY, int endX, int endY){
+        
+        super.points = new ArrayList();
         
         x1 = startX;
         y1 = startY;
         x2 = endX;
         y2 = endY;
         
-        this.drawing = drawing;
-        
-        draw();
+        definePoints();
+                
     }
     
     /**
@@ -33,7 +32,7 @@ public class Line {
      * definition when drawn with respect to the y or x axis and
      * then calls the respective draw method.
      */
-    public void draw (){
+    private void definePoints (){
         
         int xChange = Math.abs(x2 - x1);
         int yChange = Math.abs(y2 - y1);
@@ -44,12 +43,12 @@ public class Line {
         //If angle is > 45 degrees definition is higher in respect to Y axis.
         if(angle >= 45.0){
             //Number of points in line = yChange, initialize points.
-            points = new Point[yChange];
-            drawByY(xChange, yChange);
+            //points = new Point[yChange];
+            definePointsByY(xChange, yChange);
         }else{
             //Number of points in line = xChange, initialize points.
-            points = new Point[xChange];
-            drawByX(xChange, yChange);
+            //points = new Point[xChange];
+            definePointsByX(xChange, yChange);
         }
         
     }
@@ -59,7 +58,7 @@ public class Line {
      * @param xChange The change in X value between x1 and x2.
      * @param yChange The change in Y value between y1 and y2.
      */
-    public void drawByX(int xChange, int yChange){
+    public void definePointsByX(int xChange, int yChange){
         
         float ySlope = ((float) yChange / (float)xChange);
         
@@ -72,9 +71,9 @@ public class Line {
         
         for (int i = 0; i < xChange ; i++){
             //Store points in array for use in deletion/transforms.
-            points[i] = new Point(drawX, drawY);
+            Point p = new Point(drawX, drawY);
+            points.add(p);
             
-            drawing.showPoint(drawX, drawY);
             drawY = Math.round(y1 + ySlope*i);
             
             if(x1 < x2 ){
@@ -91,7 +90,7 @@ public class Line {
      * @param xChange The change in X value between x1 and x2.
      * @param yChange The change in Y value between y1 and y2.
      */
-    public void drawByY(int xChange, int yChange){
+    public void definePointsByY(int xChange, int yChange){
         
         float xSlope = ((float)xChange / (float)yChange);
         
@@ -104,9 +103,9 @@ public class Line {
         
         for (int i = 0; i < yChange; i++){
             //Store points in array for use in deletion/transforms.
-            points[i] = new Point(drawX, drawY);
+            Point p = new Point(drawX, drawY);
+            points.add(p);
             
-            drawing.showPoint(drawX, drawY);
             drawX = Math.round(x1 + xSlope*i);
             
             if(y1 < y2 ){
@@ -123,9 +122,11 @@ public class Line {
      * x and y values for all points in the line and calling hidePoint();.
      */
     public void delete(){
-        for(int i = 0; i < points.length; i++){
-            drawing.hidePoint(points[i].getX(), points[i].getY());
-        }
+        
+    }
+    
+    public String getShapeType(){
+        return "line";
     }
     
     public int getX1(){
