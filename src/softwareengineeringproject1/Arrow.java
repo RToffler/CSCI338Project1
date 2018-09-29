@@ -8,14 +8,23 @@ package softwareengineeringproject1;
 import java.util.ArrayList;
 
 /**
- *
- * @author mille
+ *Defines the points in superclass Point list which will be 
+ * used in the draw method of InteractiveDrawing.
+ * @author Richard Miller
  */
 public class Arrow extends Shape{
     
     int x, y, length;
     String orientation;
     
+    /**
+     * Set class member variables and call definePoints()
+     * @param x - x coordinate for arrow starting point.
+     * @param y - y coordinate for arrow starting point.
+     * @param length - length of arrow.
+     * @param orientation - direction of arrow, expects string "up",
+     * "down", "left", or "right".
+     */
     public Arrow(int x, int y, int length, String orientation){
         super.points = new ArrayList();
         
@@ -27,6 +36,11 @@ public class Arrow extends Shape{
         definePoints();
     }
     
+    /**
+     * Breaks the defining of the points of the arrow into
+     * the line and the triangle at the end. Calls method
+     * based on orientation parameter.
+     */
     private void definePoints(){
         if(orientation.toLowerCase().equals("up")){
             defineLine(x, y, x, y-length+10);
@@ -43,6 +57,14 @@ public class Arrow extends Shape{
         }
     }
     
+    /**
+     * Creates new line and adds its points to superclass
+     * Point list.
+     * @param x1 line start x coordinate.
+     * @param y1 line start y coordinate.
+     * @param x2 line end x coordinate.
+     * @param y2 line end y coordinate.
+     */
     private void defineLine(int x1, int y1, int x2, int y2){
         Line line = new Line(x1, y1, x2, y2);
         for(int i = 0; i < line.points.size(); i ++){
@@ -50,21 +72,19 @@ public class Arrow extends Shape{
         }
     }
     
+    /**
+     * Creates new triangle and adds its points to superclass
+     * Point list.
+     * @param x1 line start x coordinate.
+     * @param y1 line start y coordinate.
+     * @param height triangle height.
+     * @param orientation orientation of arrow.
+     */
     private void defineTriangle(int x1, int y1, int height, String orientation){
         Triangle triangle = new Triangle(x1, y1, height, orientation);
         for(int i = 0; i < triangle.points.size(); i++){
             super.points.add(triangle.points.get(i));
         }
     }
-    
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public String getShapeType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

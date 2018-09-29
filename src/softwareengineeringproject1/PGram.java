@@ -1,21 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package softwareengineeringproject1;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author mille
+ *Contains methods to generate the points of a parallelogram
+ * with user input.
+ * @author Richard Miller
  */
 public class PGram extends Shape{
     
     int x1, y1, length, height;
     double theta;
     
+    /**
+     * Defines class member variables, adjusts user input
+     * for mathematical use, and calls definePoints();
+     * @param x1 - x coord of the upper left coordinate of parallelogram.
+     * @param y1 - y coord of the upper left coordinate of parallelogram.
+     * @param length - length of the top and bottom lines of parallelogram.
+     * @param height - height of parallelogram.
+     * @param theta - angle of upper left vertex.
+     */
     public PGram(int x1, int y1, int length, int height,
             double theta){
         
@@ -35,10 +41,16 @@ public class PGram extends Shape{
         definePoints();
     }
     
+    /**
+     * Defines the start and endpoints for the lines constituting
+     * a parallelogram using user provided input and call methods
+     * to define those lines.
+     */
     private void definePoints(){
 
         double thetaRad = Math.toRadians(theta);
         
+        //Find length shift between top and bottom lines.
         int xshift = Math.round((float)Math.tan(thetaRad) * height);
         
         //Define line endpoints based on calculated shift.
@@ -55,6 +67,14 @@ public class PGram extends Shape{
         defineLinePoints(x4, y4, x1, y1);
     }
     
+    /**
+     * Defines points of a line and provides them to superclass
+     * Points ArrayList.
+     * @param x1 - x coord for start point of line.
+     * @param y1 - y coord for start point of line.
+     * @param x2 - x coord for end point of line.
+     * @param y2 - y coord for end point of line.
+     */
     private void defineLinePoints(int x1, int y1, int x2, int y2){
         Line line = new Line(x1, y1, x2, y2);
         for(int i = 0; i < line.points.size(); i ++){
@@ -62,14 +82,5 @@ public class PGram extends Shape{
         }
     }
     
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getShapeType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

@@ -1,20 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package softwareengineeringproject1;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author mille
+ *Contains methods to define the points of a triangle
+ * with user provided parameters.
+ * @author Richard Miller
  */
 public class Triangle extends Shape{
     
     int x1, y1, x2, y2, x3, y3, height;
     
+    /**
+     * Assigns class member variables, calls defineVertexes and
+     * definePoints();
+     * @param tipX - x coordinate of triangle tip.
+     * @param tipY - y coordinate of triangle tip.
+     * @param height - height of triangle.
+     * @param orientation - direction of triangle, string "up", "down",
+     * "left", or "right".
+     */
     public Triangle (int tipX, int tipY, int height, String orientation){
         super.points = new ArrayList();
         x1 = tipX;
@@ -24,6 +30,10 @@ public class Triangle extends Shape{
         definePoints();
     }
     
+    /**
+     * Defines points of the two other triangle vertexes.
+     * @param orientation - direction of the triangle.
+     */
     private void defineVertexes(String orientation){
         if("down".equals(orientation)){
            y2 = y1-height;
@@ -49,12 +59,24 @@ public class Triangle extends Shape{
         }
     }
     
+    /**
+     * Calls defineLinePoints with params for the
+     * lines constituting the triangle.
+     */
     private void definePoints(){
        defineLinePoints(x1, y1, x2, y2);
        defineLinePoints(x1,y1, x3, y3);
        defineLinePoints(x2,y2, x3, y3);
     }
     
+    /**
+     * Defines the points of a line and provides them to
+     * superclass Points ArrayList.
+     * @param x1 - x coord of the start point of line.
+     * @param y1 - y coord of the start point of line.
+     * @param x2 - x coord of the end point of line.
+     * @param y2 - y coord of the end point of line.
+     */
     private void defineLinePoints(int x1, int y1,int x2,int y2){
         Line line1 = new Line(x1, y1, x2, y2);
         for(int i = 0; i < line1.points.size(); i++){
@@ -62,14 +84,4 @@ public class Triangle extends Shape{
         }
     }
 
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getShapeType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

@@ -1,26 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package softwareengineeringproject1;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
- *
- * @author Richard Miller This program utilizes the provided point-drawing API
- * in an application that allows users to draw rectangles and lines, or the
- * basis of UML diagrams.
+ * CSCI 338 Project 2, Shaeffer
+ * 
+ * @author Richard Miller
+ * This program allows users to draw various shapes and lines
+ * via the command line. Users are also able to delete shapes
+ * by clicking on them.  
+ * 
+ * Known Issues: 
+ *  Some lines may have awkward or jagged edges because of
+ *  the thinness of pixel lines and integer rounding in draw
+ *  methods.
+ * 
+ *  It is difficult for the user to click on an exact pixel
+ *  of a shape for deletion.  Implementing some sort of
+ *  tolerance in the point checking deletion methods is a
+ *  potential fix.
+ * 
+ *  If a point is shared by multiple shapes and one is deleted,
+ *  it is deleted on all other shapes as well.  Adding a list
+ *  of shared points to be ignored during deletion is a possible
+ *  fix for this.
+ * 
+ *  Error handling for user input should be improved with use
+ *  of exception catching.
+ * 
  */
 public class DiagramDrawer {
 
-    /*
-        Data structures containing lines and boxes for future 
-        implemented features, I.E transformation/deletion.
-     */
-    ArrayList<Shape> shapes = new ArrayList();
 
     Scanner scanner = new Scanner(System.in);
     public InteractiveDrawing drawing = new InteractiveDrawing();
@@ -41,7 +52,8 @@ public class DiagramDrawer {
 
     /**
      * This method is the shell that accepts and responds to user input using a
-     * break statement for the valid inputs.
+     * break statement for the valid inputs and calling each input's
+     * respective method.
      */
     public void shell() {
 
@@ -93,9 +105,6 @@ public class DiagramDrawer {
                     handleArrow(keywords);
                     break;
 
-                case "delete":
-                    //Implement
-                    break;
                 default:
                     System.out.println("Unrecognized command, '" + input
                             + "', type 'help' for list of commands.");
@@ -103,7 +112,13 @@ public class DiagramDrawer {
             }
         }
     }
-
+    
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleLine(String[] keywords) {
         //Check for proper input
         if (keywords.length != 5) {
@@ -123,6 +138,12 @@ public class DiagramDrawer {
 
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleDottedLine(String[] keywords) {
         if (keywords.length != 6) {
             System.out.println("Error: incorrect number of arguments.");
@@ -142,6 +163,12 @@ public class DiagramDrawer {
 
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleBox(String[] keywords) {
         if (keywords.length != 5) {
             System.out.println("Error: Improper number of arguments.");
@@ -160,6 +187,12 @@ public class DiagramDrawer {
 
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleTriangle(String[] keywords) {
         //Check for proper input.
         if (keywords.length != 5) {
@@ -178,6 +211,12 @@ public class DiagramDrawer {
         drawing.draw(triangle);
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleCircle(String[] keywords) {
         if (keywords.length != 4) {
             System.out.println("Error: Improper number of arguments.");
@@ -195,6 +234,12 @@ public class DiagramDrawer {
 
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handlePgram(String[] keywords) {
         if (keywords.length != 6) {
             System.out.println("Error: Improper number of arguments.");
@@ -215,6 +260,12 @@ public class DiagramDrawer {
 
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleArrow(String[] keywords) {
         if (keywords.length != 5) {
             System.out.println("Error: Improper number of arguments.");
@@ -233,6 +284,12 @@ public class DiagramDrawer {
 
     }
 
+    /**
+     * Assigns input parameters to local variables which are
+     * past to the shape constructor.  The shape is then added
+     * to the InteractiveDrawing objects Shape list and drawn.
+     * @param keywords parsed user inputs.
+     */
     public void handleDiamond(String[] keywords) {
         if (keywords.length != 5) {
             System.out.println("Error: Improper number of arguments.");
@@ -252,7 +309,7 @@ public class DiagramDrawer {
     }
 
     /**
-     * this method will print out a list of valid commands and their effects.
+     * Prints out a list of valid commands and their effects.
      */
     public void help() {
         System.out.println("List of valid commands:\n");
@@ -260,15 +317,31 @@ public class DiagramDrawer {
         System.out.println("'line x1 y1 x2 y2' - Draws a line from point(x1, y1)"
                 + " to point (x2, y2).\n");
 
+        System.out.println("'dottedline x1 y1 x2 y2 rate' - Draws a dotted or"
+                + " dashed line from point (x1, y1) to point (x2, y2) where"
+                + " the dashes are of length rate in pixels.\n");
+        
         System.out.println("'box x y length height' - Draws a rectangle with"
                 + " its upper-left corner at\n" + "(x,y) and with the given"
                 + " length and height.\n");
 
-        System.out.println("'delete box x y length height' - Deletes any rectangle"
-                + " that exists with the provided charcteristics.\n");
-
-        System.out.println("'delete line x1 y1 x2 y2' - Deletes any line"
-                + " that exists with the provided charcteristics.\n");
+        System.out.println("'triangle x y height orientation' - Draws a triangle"
+                + " in the direction of the provided orientation ('up','down',"
+                + " 'left',right') with tip at point (x,y).\n");
+        
+        System.out.println("'circle x y radius' - Draws a circle centered"
+                + " at point (x,y) with the provided radius.\n");
+        
+        System.out.println("'pgram x y length height theta' - Draws a"
+                + " parallelogram with upper left corner at (x, y). Theta"
+                + " is the angle of the upper left corner vertex.");
+        
+        System.out.println("'diamond x y width height' - Draws a diamond "
+                + "with the top vertex at (x, y).");
+        
+        System.out.println("'arrow x y length orientation' - Draws an arrow "
+                + "in the direction of orientation ('left', 'right', 'up',"
+                + " 'down) starting at point (x, y).");
 
         System.out.println("'quit' - Terminate application.");
     }

@@ -1,18 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package softwareengineeringproject1;
 
-import java.util.ArrayList;
-
 /**
- *
- * @author mille
+ * Extends line, uses super constructor with added makeDotted
+ * method to make line slashed.
+ * @author Richard Miller
  */
 public class DottedLine extends Line {
-
+    /**
+     * Calls superclass constructor and local method to remove points
+     * at intervals of rate parameter.
+     * @param startX X coordinate of the starting point of the line.
+     * @param startY Y coordinate of the starting point of the line.
+     * @param endX X coordinate of the ending point of the line.
+     * @param endY Y coordinate of the ending point of the line.
+     * @param rate Interval of dotting or dashing.
+     */
     public DottedLine(int startX, int startY, int endX, int endY, int rate) {
         super(startX, startY, endX, endY);
         makeDotted(rate);

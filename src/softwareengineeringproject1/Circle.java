@@ -1,19 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package softwareengineeringproject1;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author mille
+ *Contains methods for generating the points of a 
+ * circle with user provided dimensions.
+ * @author Richard Miller
  */
 public class Circle extends Shape{
 
-    int radius, x, y;
+    private int radius, x, y;
+    /**
+     * Sets class fields and invokes definePoints();
+     * @param x
+     * @param y
+     * @param radius 
+     */
     public Circle(int x, int y, int radius){
         super.points = new ArrayList();
         
@@ -24,7 +27,13 @@ public class Circle extends Shape{
         definePoints();
     }
     
+    /**
+     * Uses a radian iterator to define the points of a circle
+     * with sin and cosine results of that iterator. Adds points
+     * to superclass point structure.
+     */
     private void definePoints(){
+        //Division of iterator scales with circle size for consistent resolution.
         double theta = Math.PI / (radius*3);
         for(double i = 0; i < 2*Math.PI; i = i + theta){
             
@@ -34,16 +43,6 @@ public class Circle extends Shape{
             Point p = new Point(radialX, radialY);
             super.points.add(p);
         }
-    }
-    
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getShapeType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

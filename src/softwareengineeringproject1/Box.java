@@ -12,7 +12,7 @@ public class Box extends Shape{
     private final int xcoord, ycoord;
     
     /**
-     * Constructor for a box.
+     * Defines class variables and calls definePoints method.
      * @param xcoord the x coordinate for the upper left hand corner of the box
      * @param ycoord the y coordinate for the upper left hand corner of the box
      * @param length the length of the box in pixels.
@@ -52,29 +52,5 @@ public class Box extends Shape{
 
         }
     }
-    
-    public void delete(){
-        
-    }
-    
-    @Override
-    public String getShapeType(){
-        return "box";
-    }
-    
-    public int getxCoord(){
-        return xcoord;
-    }
-    
-    public int getyCoord(){
-        return ycoord;
-    }
-    
-    public int getLength(){
-        return length;
-    }
-    
-    public int getHeight(){
-        return height;
-    }
+
 }

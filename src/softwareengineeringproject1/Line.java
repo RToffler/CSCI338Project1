@@ -4,7 +4,8 @@ package softwareengineeringproject1;
 import java.util.ArrayList;
 /**
  * Instantiated when the user uses the "line" command.
- * Draws a line in the simple drawing window.
+ * Defines points of of a line based on user provided
+ * start and endpoints.
  */
 public class Line extends Shape{
     
@@ -14,6 +15,13 @@ public class Line extends Shape{
     */
     private int x1, y1, x2, y2;
     
+    /**
+     * Define class member variables and call definePoints();
+     * @param startX - starting point x coord.
+     * @param startY - starting point y coord.
+     * @param endX - end point x coord.
+     * @param endY - end point y coord.
+     */
     public Line(int startX, int startY, int endX, int endY){
         
         super.points = new ArrayList();
@@ -54,7 +62,8 @@ public class Line extends Shape{
     }
     
     /**
-     * Method to draw with respect to the X axis.
+     * Method to define points with respect to the X axis and
+     * provide them to superclass Points list.
      * @param xChange The change in X value between x1 and x2.
      * @param yChange The change in Y value between y1 and y2.
      */
@@ -86,7 +95,8 @@ public class Line extends Shape{
     }
     
     /**
-     * Method to draw with respect to the Y axis.
+     * Method to define points with respect to the Y axis and
+     * provide them to superclass Points ArrayList.
      * @param xChange The change in X value between x1 and x2.
      * @param yChange The change in Y value between y1 and y2.
      */
@@ -117,31 +127,4 @@ public class Line extends Shape{
         }
     }
     
-    /**
-     * Hides points by iterating through array containing the
-     * x and y values for all points in the line and calling hidePoint();.
-     */
-    public void delete(){
-        
-    }
-    
-    public String getShapeType(){
-        return "line";
-    }
-    
-    public int getX1(){
-        return x1;
-    }
-    
-    public int getX2(){
-        return x2;
-    }
-    
-    public int getY1(){
-        return y1;
-    }
-    
-    public int getY2(){
-        return y2;
-    }
 }
